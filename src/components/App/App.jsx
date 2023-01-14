@@ -1,16 +1,67 @@
-export const App = () => {
-  return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101',
-      }}
-    >
-      React homework template
-    </div>
-  );
-};
+import React, { Component } from 'react';
+// import { Formik } from 'formik';
+import { nanoid } from 'nanoid';
+
+import ContactList from 'components/ContactList';
+import ContactForm from 'components/ContactForm';
+import Filter from 'components/Filter';
+import { Wrapper, Title, ContactsWrapper } from './App.styled';
+
+export default class App extends Component {
+  state = {
+    contacts: [],
+    filter: '',
+  };
+
+  formSubmitHandler = newContact => {
+    this.setState(prevState => ({
+      contacts: [
+        ...prevState.contacts,
+        { id: nanoid(), name: newContact.name, number: newContact.number },
+      ],
+    }));
+  };
+
+  handleFilterInputChange = event => {
+    const { value } = event.target;
+    this.setState({ filter: value });
+  };
+
+  renderContacts() {
+    const { contacts, filter } = this.state;
+    return contacts
+      .filter(contact =>
+        contact.name.toLowerCase().includes(filter.toLowerCase())
+      )
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  deleteContact = id => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== id),
+    }));
+    console.log(id);
+  };
+
+  render() {
+    const { contacts, filter } = this.state;
+    const renderContacts = this.renderContacts();
+    return (
+      <Wrapper>
+        <Title>Phonebook</Title>
+        <ContactForm
+          onSubmitForm={this.formSubmitHandler}
+          contacts={contacts}
+        />
+        <Title>Contacts:</Title>
+        <ContactsWrapper>
+          <Filter filter={filter} onChange={this.handleFilterInputChange} />
+          <ContactList
+            contacts={renderContacts}
+            deleteContact={this.deleteContact}
+          />
+        </ContactsWrapper>
+      </Wrapper>
+    );
+  }
+}
