@@ -30,6 +30,11 @@ export const Input = styled(Field)`
   border: none;
   border-radius: 5px;
   box-shadow: 1px 1px 6px #3d3d3d;
+
+  &::placeholder {
+    font-size: 14px;
+    color: #7a7a7a;
+  }
 `;
 export const ErrWrapper = styled.span`
   font-size: 14px;

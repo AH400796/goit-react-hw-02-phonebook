@@ -44,14 +44,14 @@ export default function ContactForm({ onSubmitForm, contacts }) {
         <AddingForm>
           <InputLabel>
             Name
-            <Input type="text" name="name" />
+            <Input type="text" name="name" placeholder="Andrii Hokhman" />
             <ErrWrapper>
               <ErrorMessage name="name" />
             </ErrWrapper>
           </InputLabel>
           <InputLabel>
             Number
-            <Input type="tel" name="number" />
+            <Input type="tel" name="number" placeholder="+380XXXXXXXXX" />
             <ErrWrapper>
               <ErrorMessage name="number" />
             </ErrWrapper>
