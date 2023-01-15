@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { Formik } from 'formik';
 import { nanoid } from 'nanoid';
 
 import ContactList from 'components/ContactList';
@@ -40,7 +39,6 @@ export default class App extends Component {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== id),
     }));
-    console.log(id);
   };
 
   render() {
